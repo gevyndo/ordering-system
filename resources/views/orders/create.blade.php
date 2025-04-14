@@ -9,11 +9,35 @@
             padding: 20px;
         }
         .form-group {
-            margin-bottom: 10px;
+        margin-bottom: 10px;
+        }
+
+        /* Tambahkan styling khusus untuk radio group */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 5px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .radio-option input[type="radio"] {
+            margin: 0;
+            width: 16px;
+            height: 16px;
+        }
+        .form-group label:first-child {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #333;
         }
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 0px;
         }
         input, select {
             padding: 12px;
@@ -54,7 +78,22 @@
                 @endforeach
             </select>
         </div>
-
+        
+        <!-- Add Egg (Radio Buttons) -->
+        <div class="form-group">
+            <label for="add_egg">Add Egg?</label>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="add_egg_yes" name="add_egg" value="1">
+                    <label for="add_egg_yes">Yes</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="add_egg_no" name="add_egg" value="0" checked>
+                    <label for="add_egg_no">No</label>
+                </div>
+            </div>
+        </div>
+        
         <div class="form-group">
             <label>Quantity</label>
             <input type="number" name="quantity" value="{{ old('quantity', $order->quantity ?? 1) }}">
@@ -76,15 +115,6 @@
                 <option value="QRIS">QRIS</option>
                 <option value="Cash">Cash</option>
                 <option value="Transfer">Transfer</option>
-            </select>
-        </div>
-
-        <!-- Add Egg -->
-        <div class="form-group">
-            <label for="add_egg">Add Egg?</label>
-            <select name="add_egg" id="add_egg" class="form-control">
-                <option value="0">No</option>
-                <option value="1">Yes</option>
             </select>
         </div>
 

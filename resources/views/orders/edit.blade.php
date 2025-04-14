@@ -54,7 +54,14 @@
                 @endforeach
             </select>
         </div>
-
+        <!-- Add Egg -->
+        <div class="form-group">
+            <label for="add_egg">Add Egg?</label>
+            <select name="add_egg" id="add_egg" class="form-control">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
         <div class="form-group">
             <label>Quantity</label>
             <input type="number" name="quantity" value="{{ old('quantity', $order->quantity ?? 1) }}">
@@ -76,15 +83,6 @@
                 <option value="QRIS">QRIS</option>
                 <option value="Cash">Cash</option>
                 <option value="Transfer">Transfer</option>
-            </select>
-        </div>
-
-        <!-- Add Egg -->
-        <div class="form-group">
-            <label for="add_egg">Add Egg?</label>
-            <select name="add_egg" id="add_egg" class="form-control">
-                <option value="0">No</option>
-                <option value="1">Yes</option>
             </select>
         </div>
 

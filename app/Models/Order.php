@@ -10,6 +10,13 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'menu', 'quantity', 'notes', 'price', 'order_date'
+        'name',
+        'menu',
+        'quantity',
+        'notes',
+        'price',
+        'order_date',
+        'payment_method',
+        'add_egg',
     ];
 }

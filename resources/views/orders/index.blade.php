@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Orders</title>
+    <link rel="icon" href="{{ asset('images/logoB.png') }}" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <style>
         body {
@@ -11,13 +12,13 @@
             padding: 20px;
         }
         .container {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    max-width: 1600px;
-    margin: 20px auto; /* tengahin container secara horizontal */
-}
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 1600px;
+            margin: 20px auto; /* tengahin container secara horizontal */
+        }
 
         h2 {
             margin-top: 0;
@@ -51,13 +52,13 @@
             padding: 4px;
         }
         table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 10px;
-    overflow: hidden;
-    text-align: left;
-    margin-left: 0;        /* ini penting */
-}
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: left;
+            margin-left: 0;        /* ini penting */
+        }
 
         th, td {
             padding: 14px;
@@ -105,10 +106,10 @@
                 <th>Menu</th>
                 <th>Quantity</th>
                 <th>Price</th>
-                <th>Notes</th>
-                <th>Actions</th>
-                <th>Payment</th>
                 <th>Egg?</th>
+                <th>Notes</th>
+                <th>Payment</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>

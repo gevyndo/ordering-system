@@ -17,14 +17,17 @@ class OrderController extends Controller
         'Cabe Garam' => 30000,
         'Salted Egg' => 30000,
     ];
+    
 
     public function index()
     {
         $totalPrice = Order::sum('price');
+        
         return view('orders.index', [
             'orders' => Order::all(),
             'totalPrice' => $totalPrice
         ]);
+        
     }
 
     public function create()
@@ -36,7 +39,7 @@ class OrderController extends Controller
         $basePrice = $this->menuPrices[$menu] ?? 25000;
 
         if ($addEgg) {
-            $basePrice += 5000;
+            $basePrice += 4000;
         }
 
         return $basePrice * $quantity;
@@ -49,7 +52,7 @@ class OrderController extends Controller
             'quantity' => 'required|integer|min:1',
             'notes' => 'nullable|string',
             'order_date' => 'required|date',
-            'payment_method' => 'required|in:QRIS,Cash,Transfer',
+            'payment_method' => 'nullable|in:QRIS,Cash,Transfer',
             'add_egg' => 'required|boolean',
         ]);
     

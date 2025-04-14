@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->integer('price');
             $table->dateTime('order_date'); // ubah dari date ke dateTime
             $table->timestamps();
-            $table->string('payment_method'); // QRIS, Cash, Transfer
+            $table->string('payment_method')->default('Cash'); // QRIS, Cash, Transfer
             $table->boolean('add_egg')->default(false); // Yes or No
         });
     }
