@@ -69,6 +69,24 @@
             <label>Date & Time</label>
             <input type="datetime-local" name="order_date" value="{{ old('order_date', isset($order->order_date) ? date('Y-m-d\TH:i', strtotime($order->order_date)) : date('Y-m-d\TH:i')) }}">
         </div>
+        <!-- Payment Method -->
+        <div class="form-group">
+            <label for="payment_method">Payment Method</label>
+            <select name="payment_method" id="payment_method" class="form-control">
+                <option value="QRIS">QRIS</option>
+                <option value="Cash">Cash</option>
+                <option value="Transfer">Transfer</option>
+            </select>
+        </div>
+
+        <!-- Add Egg -->
+        <div class="form-group">
+            <label for="add_egg">Add Egg?</label>
+            <select name="add_egg" id="add_egg" class="form-control">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
 
         <button class="button" type="submit">Submit</button>
     </form>

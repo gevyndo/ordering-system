@@ -1,49 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
     <title>Orders</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family:  sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #EDECE7;
             margin: 0;
             padding: 20px;
         }
-        h1, h2 {
-            color: #333;
+        .container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-width: 1600px;
+    margin: 20px auto; /* tengahin container secara horizontal */
+}
+
+        h2 {
+            margin-top: 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .button-group {
+            margin-bottom: 15px;
         }
         .button {
             background-color: #28a745;
             border: none;
             color: white;
-            padding: 10px 10px;
+            padding: 8px 12px;
             text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 8px 4px 0;
+            font-size: 14px;
+            margin-right: 8px;
             cursor: pointer;
             border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
         }
-        .order-item {
-            background-color: #fff;
-            margin-bottom: 8px;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            width: 60%;
+        .button-info {
+            background-color: #17a2b8;
         }
-        .order-actions {
-            margin-top: 5px;
+        .button-icon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px;
         }
-        form {
-            display: inline;
+        table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: left;
+    margin-left: 0;        /* ini penting */
+}
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            font-size: 14px;
         }
-        .button-group {
-            margin-bottom: 10px;
-            
+        thead {
+            background-color: #f8f9fa;
+            color: #555;
+        }
+        tbody tr {
+            border-top: 1px solid #e0e0e0;
+        }
+        tbody tr:hover {
+            background-color: #f4f4f4;
+        }
+        .actions {
+            white-space: nowrap;
+        }
+        .revenue {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
         }
     </style>
 </head>
@@ -52,32 +90,56 @@
 <a href="{{ route('orders.index') }}">
     <img src="{{ asset('images/logo.png') }}" alt="Company Logo" style="width: 259px; margin-bottom: 10px;">
 </a>
-
-<h1>All Orders</h1>
-
-
 <div class="button-group">
-    <a class="button" href="{{ route('orders.create') }}" style="margin-bottom: 20px; display: inline-block;">Create Order</a>
-    <a class="button" style="background-color:#17a2b8" href="{{ route('orders.export.csv') }}">Export CSV</a>
+        <a class="button" href="{{ route('orders.create') }}">Create Order</a>
+        <a class="button button-info" href="{{ route('orders.export.csv') }}">Export CSV</a>
 </div>
 
-<div>
-    @foreach ($orders as $order)
-        <div class="order-item">
-            {{ $order->name }} - {{ date('Y-m-d H:i', strtotime($order->order_date)) }} <br>
-            {{ $order->menu }} x {{ $order->quantity }} (Rp{{ number_format($order->price, 0, ',', '.') }}) <br>
-            Notes: {{ $order->notes }}<br>
-            <div class="order-actions">
-                <a class="button" href="{{ route('orders.edit', $order) }}">Edit</a>
-                <form method="POST" action="{{ route('orders.destroy', $order) }}">
-                    @csrf @method('DELETE')
-                    <button class="button" style="background-color:#dc3545" type="submit">Delete</button>
-                </form>
-            </div>
-        </div>
-    @endforeach
-</div>
+    <div class="container">
+    <h2>All Orders</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Order Date</th>
+                <th>Menu</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Notes</th>
+                <th>Actions</th>
+                <th>Payment</th>
+                <th>Egg?</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($orders as $order)
+            <tr>
+                <td>{{ $order->name }}</td>
+                <td>{{ date('Y-m-d H:i', strtotime($order->order_date)) }}</td>
+                <td>{{ $order->menu }}</td>
+                <td>{{ $order->quantity }}</td>
+                <td>Rp{{ number_format($order->price, 0, ',', '.') }}</td>
+                <td>{{ $order->add_egg ? 'Yes' : 'No' }}</td>
+                <td>{{ $order->notes }}</td>
+                <td>{{ $order->payment_method }}</td>
+                <td class="actions">
+                    <a class="button-icon" href="{{ route('orders.edit', $order) }}">✏️</a>
+                    <form method="POST" action="{{ route('orders.destroy', $order) }}" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button class="button-icon" type="submit">🗑️</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 
-<h2>Revenue: Rp{{ number_format($totalPrice, 0, ',', '.') }}</h2>
+
+
+</div>
+<div class="revenue">
+    Revenue: Rp{{ number_format($totalPrice, 0, ',', '.') }}
+</div>
 </body>
 </html>
